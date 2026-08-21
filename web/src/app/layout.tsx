@@ -1,12 +1,6 @@
 import type { Metadata } from "next";
 import { Roboto, Abhaya_Libre } from "next/font/google";
 import "./globals.css";
-import "./saintia-overrides.css";
-import "./saintia-interactions.css";
-import "./saintia-services.css";
-import "./saintia-nav.css";
-import "./saintia-restraint.css";
-import "./saintia-departments.css";
 import "./saintia-product-design.css";
 
 const roboto = Roboto({
