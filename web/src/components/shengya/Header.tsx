@@ -1,0 +1,4 @@
+'use client';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+export function Header() { const [open, setOpen] = useState(false); const [scrolled, setScrolled] = useState(false); useEffect(() => { const onScroll = () => setScrolled(window.scrollY > 30); window.addEventListener('scroll', onScroll, { passive: true }); return () => window.removeEventListener('scroll', onScroll); }, []); return <header className={`sy-header ${scrolled ? 'scrolled' : ''}`}><div className="sy-container sy-header-inner"><Link href="/" className="sy-logo"><span>圣娅</span><small>SAINTIA MEDICAL CENTER</small></Link><nav className={open ? 'is-open' : ''}><Link href="/">首页</Link><Link href="/doctors">医生介绍</Link><Link href="/contact">联系我们</Link></nav><button className="sy-menu" onClick={() => setOpen(!open)} aria-label="打开菜单"><i /><i /><i /></button></div></header>; }
