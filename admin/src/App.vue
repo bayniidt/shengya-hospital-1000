@@ -13,6 +13,12 @@ const dragOverDoctor = ref(null);
 const expandedMessage = ref(null);
 const content = ref({});
 const submissions = ref([]);
+const staticMedia = [
+  ...['095542_340','095546_385','095549_945','095553_582','095557_211','095600_690','095604_007','095608_127','095612_673'].map(id => `/圣娅医院素材/医生/Weixin Image_2026-08-21_${id}.jpg`),
+  ...['095719_719','095728_361','095733_673','095738_947','095742_997','095747_566','095751_686','095756_088','095800_247','095803_930','095807_894','095811_886','095815_993','095819_695'].map(id => `/圣娅医院素材/环境/Weixin Image_2026-08-21_${id}.jpg`),
+  ...['095505_258','095516_434','095521_471','095527_061','095532_719'].map(id => `/圣娅医院素材/Weixin Videos2026-08-21_${id}.mp4`),
+  '/圣娅医院素材/视频/Weixin Videos2026-08-21_095537_672.mp4',
+];
 const doctors = ref([
   { name: '牛勇敢', title: '院长 / 主任医师', focus: '整形外科、面部年轻化', image: '/圣娅医院素材/医生/Weixin Image_2026-08-21_095542_340.jpg', enabled: true },
   { name: '余东', title: '副主任医师', focus: '美容外科、眼部整形', image: '/圣娅医院素材/医生/Weixin Image_2026-08-21_095546_385.jpg', enabled: true },
@@ -30,7 +36,7 @@ async function saveContent() { try { await request('/api/admin/content', { metho
 async function saveDoctors() { try { await request('/api/admin/doctors', { method: 'PUT', body: JSON.stringify(doctors.value) }); notify('医生资料已保存并同步'); } catch (error) { notify(error.message); } }
 async function markRead(item) { await request(`/api/admin/contact-submissions/${item.id}`, { method: 'PATCH', body: JSON.stringify({ status: 'read' }) }); item.status = 'read'; notify('已标记为已读'); }
 function saveToken() { localStorage.setItem('saintia_admin_token', token.value); notify('管理员凭证已保存'); load(); }
-function mediaItems() { return [content.value.heroImage, content.value.heroVideo].filter(Boolean); }
+function mediaItems() { return Array.from(new Set([content.value.heroImage, content.value.heroVideo, ...staticMedia].filter(Boolean))); }
 function relativeTime(value) { const timestamp = new Date(String(value).replace(' ', 'T')).getTime(); if (!Number.isFinite(timestamp)) return value; const seconds = Math.max(0, Math.floor((Date.now() - timestamp) / 1000)); if (seconds < 60) return '刚刚'; if (seconds < 3600) return `${Math.floor(seconds / 60)}分钟前`; if (seconds < 86400) return `${Math.floor(seconds / 3600)}小时前`; if (seconds < 604800) return `${Math.floor(seconds / 86400)}天前`; return new Date(timestamp).toLocaleDateString('zh-CN'); }
 function startDoctorDrag(index) { draggingDoctor.value = index; }
 function overDoctor(index) { dragOverDoctor.value = index; }
