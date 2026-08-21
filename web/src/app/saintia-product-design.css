@@ -214,20 +214,20 @@ button, input, textarea { font-family: inherit; }
 .sy-check input { width: 15px; height: 15px; accent-color: var(--sy-purple); }
 .sy-form-status { color: var(--sy-purple); line-height: 1.7; }
 
+@media (max-width: 1200px) {
+  .sy-container { width: min(100%, 1120px); padding-inline: 28px; }
+  .sy-header nav { gap: 22px; }
+  .sy-video { grid-template-columns: 1fr 1fr; gap: 48px; }
+}
+
 @media (max-width: 1000px) {
-  .sy-header nav { gap: 24px; }
+  .sy-header nav { gap: 18px; }
   .sy-header nav > a:not(.sy-nav-cta), .sy-nav-group > button { font-size: 15px; }
   .sy-nav-cta { padding-inline: 17px !important; font-size: 14px !important; }
   .sy-intro-layout { grid-template-columns: 1fr 1fr; }
   .sy-intro-copy { grid-column: 1 / -1; max-width: 700px; }
   .sy-stat-grid { min-height: 430px; }
   .sy-doctor-card > div { height: 300px; }
-}
-
-@media (max-width: 1200px) {
-  .sy-container { width: min(100%, 1120px); padding-inline: 28px; }
-  .sy-header nav { gap: 22px; }
-  .sy-video { grid-template-columns: 1fr 1fr; gap: 48px; }
 }
 
 @media (max-width: 960px) {
