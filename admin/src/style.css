@@ -23,5 +23,6 @@
 .message-cell{max-width:300px;color:#7c7068;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
 .message-cell:hover{color:#4a392f}
 .message-cell.expanded{white-space:normal;overflow:visible;line-height:1.7}
+button:focus-visible,.message-cell:focus-visible{outline:2px solid #b18b6b;outline-offset:3px}
 @media(max-width:1050px){.saved-state{display:none}.admin-search{width:220px}}
 @media(max-width:700px){.topbar{padding:14px 16px}.topbar .eyebrow,.admin-search,.avatar{display:none}.top-actions{gap:8px}}
