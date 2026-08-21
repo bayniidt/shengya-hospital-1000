@@ -2,7 +2,20 @@
   "name": "shengya-admin",
   "private": true,
   "type": "module",
-  "scripts": { "dev": "node --watch server.js", "dev:ui": "vite --host 0.0.0.0", "build": "vite build", "start": "node server.js" },
-  "dependencies": { "cors": "^2.8.5", "express": "^5.1.0", "vue": "^3.5.13" },
-  "devDependencies": { "@vitejs/plugin-vue": "^5.2.1", "vite": "^6.0.7" }
+  "scripts": {
+    "dev": "node --watch server.js",
+    "dev:ui": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@lucide/vue": "^1.33.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "vite": "^6.0.7"
+  }
 }
