@@ -1,12 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useLanguage } from './LanguageProvider';
 
 export function Header() {
   const pathname = usePathname();
+  const router = useRouter();
   const { language, setLanguage, text } = useLanguage();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -28,7 +29,7 @@ export function Header() {
       </Link>
       <nav className={open ? 'is-open' : ''} aria-label={text('主导航', 'Main navigation')}>
         <Link className={active('/') ? 'active' : ''} aria-current={active('/') ? 'page' : undefined} href="/" onClick={closeMenu}>{text('首页', 'Home')}</Link>
-        <div className="sy-nav-group"><button type="button" onClick={() => { if (window.matchMedia('(max-width: 760px)').matches) { closeMenu(); window.location.href = '/#services'; } }}>{text('医疗服务', 'Services')} <b>⌄</b></button><div className="sy-nav-dropdown">
+        <div className="sy-nav-group"><button type="button" onClick={() => { if (window.matchMedia('(max-width: 760px)').matches) { closeMenu(); router.push('/#services'); } }}>{text('医疗服务', 'Services')} <b>⌄</b></button><div className="sy-nav-dropdown">
           <Link href="/#services" onClick={closeMenu}>{text('服务总览', 'Overview')}</Link>
           <Link href="/#services" onClick={closeMenu}>{text('医美整形', 'Aesthetic Surgery')}</Link>
           <Link href="/#services" onClick={closeMenu}>{text('精密体检', 'Health Screening')}</Link>
