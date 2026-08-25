@@ -1,0 +1,41 @@
+name: shengya-demo
+
+services:
+  backend:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.backend
+    image: ${DEMO_BACKEND_IMAGE:-shengya-demo-backend:20260824}
+    container_name: shengya-demo-backend
+    restart: unless-stopped
+    environment:
+      PORT: 4000
+      ADMIN_TOKEN: ${ADMIN_TOKEN}
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:4000/api/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.web
+    image: ${DEMO_FRONTEND_IMAGE:-shengya-demo-frontend:20260824}
+    container_name: shengya-demo-frontend
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:8090:3000"
+    environment:
+      ADMIN_API_URL: http://backend:4000
+      NEXT_PUBLIC_BASE_PATH: /shengya-demo
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/shengya-demo/').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 15s

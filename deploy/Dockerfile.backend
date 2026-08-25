@@ -1,0 +1,17 @@
+FROM dockerproxy.net/library/node:24.14.0-bookworm-slim AS dependencies
+
+WORKDIR /app
+COPY admin/package.json admin/package-lock.json ./
+RUN npm ci --omit=dev --no-audit --no-fund
+
+FROM dockerproxy.net/library/node:24.14.0-bookworm-slim AS runner
+
+WORKDIR /app
+ENV NODE_ENV=production
+COPY --from=dependencies /app/node_modules ./node_modules
+COPY --chown=node:node admin/server.js admin/admin.html admin/shengya.sqlite ./
+COPY --chown=node:node admin/dist ./dist
+RUN chown node:node /app
+USER node
+EXPOSE 4000
+CMD ["node", "server.js"]

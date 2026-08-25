@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Roboto, Abhaya_Libre } from "next/font/google";
 import "./globals.css";
+import "weui/dist/style/weui.css";
 import "./saintia-product-design.css";
+import { LanguageProvider } from "@/components/shengya/LanguageProvider";
+import { MotionProvider } from "@/components/shengya/MotionProvider";
 
 const roboto = Roboto({
   variable: "--font-roboto",
@@ -32,7 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN" className={`${roboto.variable} ${abhayaLibre.variable} h-full antialiased`}>
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full"><LanguageProvider><MotionProvider>{children}</MotionProvider></LanguageProvider></body>
     </html>
   );
 }

@@ -17,6 +17,7 @@
   --sy-body: #625968;
   --sy-muted: #817885;
   --sy-line: #e5dde7;
+  --sy-card-radius: 18px;
   --font-heading: "Songti SC", "STSong", "Noto Serif CJK SC", Georgia, serif;
   --font-body: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
 }
@@ -35,8 +36,8 @@ button, input, textarea { font-family: inherit; }
 .sy-section-heading > p { flex: 0 1 390px; margin: 0 0 8px; color: var(--sy-body); font-size: 15px; line-height: 1.9; }
 
 /* Header */
-.sy-header { position: fixed; z-index: 100; padding: 22px 0; transition: background .35s ease, padding .35s ease, box-shadow .35s ease; }
-.sy-header.scrolled, .sy-header-solid { padding: 13px 0; background: rgba(40,16,47,.94); box-shadow: 0 8px 30px rgba(22,8,27,.16); backdrop-filter: blur(16px); }
+.sy-header { position: fixed; inset: 0 0 auto; z-index: 100; width: 100%; padding: 22px 0; background-color: transparent; transition: padding .35s ease, box-shadow .35s ease; }
+.sy-header.scrolled, .sy-header-solid { padding: 13px 0; background-color: rgba(40,16,47,.96); box-shadow: 0 8px 30px rgba(22,8,27,.16); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
 .sy-logo { min-width: 150px; }
 .sy-logo span { font: 500 32px/1 var(--font-heading); letter-spacing: .14em; }
 .sy-logo small { margin-top: 7px; font-size: 8px; letter-spacing: .18em; opacity: .78; }
@@ -48,6 +49,9 @@ button, input, textarea { font-family: inherit; }
 .sy-header nav > a:hover::after, .sy-header nav > a.active::after, .sy-nav-group:hover > button::after { right: 0; left: 0; }
 .sy-nav-cta { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; padding: 0 22px !important; border: 1px solid rgba(255,255,255,.9) !important; color: #fff !important; font-size: 15px !important; font-weight: 600; line-height: 1 !important; letter-spacing: .05em !important; white-space: nowrap; transition: background .25s, color .25s, border-color .25s; }
 .sy-nav-cta:hover { background: #fff; border-color: #fff !important; color: var(--sy-purple-deep) !important; }
+.sy-language-switch { display: inline-flex; align-items: center; gap: 5px; color: rgba(255,255,255,.55); white-space: nowrap; }
+.sy-language-switch button { border: 0; padding: 4px 2px; background: transparent; color: rgba(255,255,255,.58); font: 600 11px/1 var(--font-body); cursor: pointer; }
+.sy-language-switch button.active { color: #fff; }
 
 /* Hero */
 .sy-hero { min-height: min(820px, 100svh); }
@@ -248,6 +252,7 @@ button, input, textarea { font-family: inherit; }
   .sy-logo span { font-size: 27px; }
   .sy-header nav { top: 66px; padding: 24px 22px 30px; gap: 4px; background: rgba(40,16,47,.98); box-shadow: 0 20px 40px rgba(22,8,27,.22); }
   .sy-header nav > a:not(.sy-nav-cta), .sy-nav-group > button { width: 100%; min-height: 48px; justify-content: flex-start; padding: 0; color: #fff; font-size: 16px; text-align: left; }
+  .sy-language-switch { min-height: 46px; }
   .sy-nav-group { height: auto; }
   .sy-header nav > a:not(.sy-nav-cta)::after, .sy-nav-group > button::after { display: none; }
   .sy-nav-group { width: 100%; }
@@ -322,4 +327,145 @@ button, input, textarea { font-family: inherit; }
   html { scroll-behavior: auto; }
   .sy-hero-bg, .sy-service-image img { animation: none; }
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+}
+
+/* WeUI is the interaction foundation; these brand overrides keep it unmistakably Saintia. */
+:root {
+  --weui-BRAND: var(--sy-purple);
+  --weui-BRAND-100: var(--sy-purple-deep);
+  --weui-BRAND-120: #1d0925;
+  --weui-FG-0: var(--sy-ink);
+  --weui-BG-0: var(--sy-cream);
+  --weui-BG-2: var(--sy-purple-soft);
+}
+
+[data-reveal] { animation: none !important; }
+.weui-cells::before, .weui-cells::after, .weui-cell::before { border-color: var(--sy-line); }
+.weui-cell_active:active { background-color: var(--sy-purple-soft); }
+
+.weui-btn.sy-btn {
+  width: auto;
+  margin: 0 10px 0 0;
+  border-radius: 3px;
+  font-weight: 600;
+  line-height: 1.35;
+  overflow: visible;
+}
+.weui-btn.sy-btn::after { border-radius: 6px; }
+.weui-btn.sy-btn + .weui-btn.sy-btn { margin-top: 0; }
+.weui-btn.sy-btn-light { background: #d7b2df; color: var(--sy-purple-deep); }
+.weui-btn.sy-btn-ghost { border: 1px solid rgba(255,255,255,.78); background: transparent; color: #fff; }
+.weui-btn.sy-btn-dark { background: var(--sy-purple); color: #fff; }
+
+.sy-stat-grid.weui-cells, .sy-department-grid.weui-cells, .sy-care-grid.weui-cells, .sy-gallery.weui-cells {
+  margin-top: 0;
+  overflow: visible;
+}
+.sy-stat-grid .weui-cell, .sy-department-grid .weui-cell, .sy-care-grid .weui-cell { display: flex; }
+.sy-stat-grid .weui-cell { align-items: flex-start; }
+.sy-department-grid .weui-cell, .sy-care-grid .weui-cell { flex-direction: column; padding: 0; }
+.sy-doctor-card.weui-cell { display: block; }
+.sy-doctor-card.weui-cell::before, .sy-gallery .weui-cell::before { display: none; }
+
+.sy-service-tabs.weui-navbar {
+  position: relative;
+  z-index: auto;
+  background: transparent;
+  box-shadow: none;
+}
+.sy-service-tabs.weui-navbar::after { border-color: var(--sy-line); }
+.sy-service-tabs .weui-navbar__item::after { display: none; }
+.sy-service-tabs .weui-navbar__item.weui-bar__item_on { color: var(--sy-purple); }
+
+.sy-gallery.weui-cells { background: transparent; }
+.sy-gallery > .weui-cell { position: relative; display: block; }
+.sy-lightbox .weui-gallery__img { position: static; width: min(1000px, 90vw); max-width: 1000px; height: auto; }
+.sy-lightbox .weui-gallery__opr { position: static; padding: 18px; background: transparent; }
+.sy-lightbox-close.weui-icon-btn { width: 48px; height: 48px; z-index: 2; filter: invert(1); }
+
+.sy-modal-mask { z-index: 1900; background: rgba(31,12,40,.78); backdrop-filter: blur(5px); }
+.sy-doctor-modal.weui-half-screen-dialog {
+  inset: auto auto 0 50%;
+  z-index: 1901;
+  display: block;
+  width: min(820px, calc(100% - 32px));
+  max-width: 820px;
+  padding: 0;
+  border-radius: 24px 24px 0 0;
+  background: #fff;
+  transform: translateX(-50%) translateY(0) !important;
+  box-shadow: 0 -18px 70px rgba(20,9,28,.25);
+}
+.sy-doctor-modal > div { width: auto; background: transparent; display: block; box-shadow: none; }
+.sy-doctor-modal .weui-half-screen-dialog__hd { padding: 22px 28px 12px; }
+.sy-doctor-sheet { display: grid !important; grid-template-columns: 42% 58%; padding: 0 !important; }
+.sy-doctor-sheet .sy-modal-photo { min-height: 420px; }
+.sy-doctor-sheet .sy-modal-copy { padding: 55px 48px; }
+
+.sy-form.weui-form { padding: 24px 42px 42px; background: transparent; color: var(--sy-ink); }
+.sy-form .weui-form__control-area { margin: 0; }
+.sy-form .weui-cells__group_form { padding: 0; }
+.sy-form .weui-cells { margin: 0; background: transparent; }
+.sy-form .weui-cell { display: flex; margin: 0; padding: 18px 0; color: var(--sy-ink); }
+.sy-form .weui-cell_vertical { align-items: stretch; flex-direction: column; gap: 12px; }
+.sy-form .weui-label { width: 92px; color: var(--sy-purple-deep); font-size: 13px; font-weight: 600; }
+.sy-form .weui-input, .sy-form .weui-textarea { border: 0 !important; padding: 0 !important; color: var(--sy-ink); }
+.sy-form .weui-textarea { min-height: 92px; }
+.sy-form .weui-agree { display: flex !important; margin: 19px 0 24px; align-items: center; }
+.sy-form .weui-agree__checkbox { margin-right: 8px; }
+.sy-form .weui-btn { min-width: 150px; }
+.sy-form .weui-primary-loading { margin-right: 8px; }
+.sy-toast { z-index: 3000; background: rgba(40,16,47,.94); backdrop-filter: blur(12px); cursor: pointer; }
+
+/* One radius for every card surface. Buttons and modal sheets are separate primitives. */
+:where(
+  .sy-intro-visual,
+  .sy-stat-grid,
+  .sy-stat-grid > .weui-cell,
+  .sy-department-grid > article,
+  .sy-gallery > button,
+  .sy-service-tabs,
+  .sy-service-feature,
+  .sy-care-grid,
+  .sy-care-grid > article,
+  .sy-doctor-card,
+  .sy-video-stage > video,
+  .sy-form-wrap
+) { border-radius: var(--sy-card-radius); }
+
+:where(
+  .sy-intro-visual,
+  .sy-stat-grid,
+  .sy-department-grid > article,
+  .sy-gallery > button,
+  .sy-service-tabs,
+  .sy-service-feature,
+  .sy-care-grid,
+  .sy-care-grid > article,
+  .sy-doctor-card,
+  .sy-video-stage > video,
+  .sy-form-wrap
+) { overflow: hidden; }
+
+.sy-stat-grid { gap: 10px; border: 0; background: transparent; }
+.sy-stat-grid > .weui-cell { border: 1px solid var(--sy-line) !important; }
+.sy-care-grid { gap: 12px; border: 0; }
+.sy-care-grid > article { border: 1px solid var(--sy-line); }
+.sy-department-grid > article { border: 1px solid var(--sy-line); }
+.sy-service-tabs { overflow-x: auto; }
+
+@media (max-width: 700px) {
+  .sy-doctor-modal.weui-half-screen-dialog { width: 100%; border-radius: 20px 20px 0 0; }
+  .sy-doctor-sheet { grid-template-columns: 1fr; }
+  .sy-doctor-sheet .sy-modal-photo { min-height: 245px; }
+  .sy-doctor-sheet .sy-modal-copy { padding: 28px 24px 34px; }
+  .sy-form.weui-form { padding: 20px 25px 32px; }
+  .sy-form .weui-cell { padding: 16px 0; }
+  .sy-service-tabs.weui-navbar { justify-content: flex-start; }
+}
+
+@media (max-width: 760px) {
+  .sy-header nav { gap: 0; }
+  .sy-header nav .sy-nav-dropdown { display: none; }
+  .sy-header nav > a:not(.sy-nav-cta), .sy-nav-group > button, .sy-language-switch { min-height: 54px; }
 }

@@ -1,0 +1,8 @@
+.git
+**/node_modules
+**/.next
+web/docs
+web/*.md
+web/tsconfig.tsbuildinfo
+admin/shengya.sqlite-shm
+admin/shengya.sqlite-wal
