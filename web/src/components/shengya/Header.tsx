@@ -34,6 +34,7 @@ export function Header() {
           <Link href="/#services" onClick={closeMenu}>{text('医美整形', 'Aesthetic Surgery')}</Link>
           <Link href="/#services" onClick={closeMenu}>{text('精密体检', 'Health Screening')}</Link>
           <Link href="/#services" onClick={closeMenu}>{text('再生医疗', 'Regenerative Medicine')}</Link>
+          <Link href="/#cell-therapy" onClick={closeMenu}>{text('细胞健康管理', 'Cell Health Management')}</Link>
         </div></div>
         <Link className={active('/doctors') ? 'active' : ''} aria-current={active('/doctors') ? 'page' : undefined} href="/doctors" onClick={closeMenu}>{text('医生介绍', 'Doctors')}</Link>
         <Link className={active('/contact') ? 'active' : ''} aria-current={active('/contact') ? 'page' : undefined} href="/contact" onClick={closeMenu}>{text('联系我们', 'Contact')}</Link>

@@ -11,6 +11,7 @@ import { DoctorsPreview } from '@/components/shengya/DoctorsPreview';
 import { Footer } from '@/components/shengya/Footer';
 import { VideoSection } from '@/components/shengya/VideoSection';
 import { ServicesSection } from '@/components/shengya/ServicesSection';
+import { CellTherapySection } from '@/components/shengya/CellTherapySection';
 import { useLanguage } from '@/components/shengya/LanguageProvider';
 
 const careItems = [
@@ -36,6 +37,7 @@ export default function Home() {
       <DepartmentCards />
       <section className="sy-section sy-sand" data-reveal><div className="sy-container"><p className="sy-kicker">OUR ENVIRONMENT</p><div className="sy-section-heading"><h2>{text('在舒适的环境里，', 'Begin every step')}<br />{text('安心开启每一步', 'with confidence')}</h2><p>{text('从抵达、咨询到离院，我们为您准备细致而从容的服务体验。', 'From arrival and consultation through departure, every detail is designed for a calm experience.')}</p></div><Gallery /></div></section>
       <ServicesSection />
+      <CellTherapySection />
       <section className="sy-section sy-care" data-reveal><div className="sy-container"><div className="sy-section-heading"><div><p className="sy-kicker">OUR CARE</p><h2>{text('六重安全与服务保障', 'Six standards of safety and care')}</h2></div><p>{text('医疗的安心，来自每个环节都清楚、规范，也经得起询问。', 'Confidence in care comes from clear, consistent standards at every stage.')}</p></div><div className="weui-cells sy-care-grid" data-stagger>{careItems.map((item, i) => { const title = language === 'zh' ? item.title : item.titleEn; return <article className="weui-cell" key={item.title}><div className="sy-care-image"><img src={deploymentPath(item.image)} alt={title} /></div><span>0{i + 1}</span><h3>{title}</h3><p>{text('严格遵循规范流程，以专业标准守护每一次诊疗。', 'Clear clinical processes and professional standards guide every treatment.')}</p></article>; })}</div></div></section>
       <DoctorsPreview />
       <VideoSection />
