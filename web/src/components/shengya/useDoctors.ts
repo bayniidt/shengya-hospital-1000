@@ -1,22 +1,18 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { doctors as fallbackDoctors } from './data';
 import { deploymentPath } from '@/lib/deploymentPath';
 import { useLanguage } from './LanguageProvider';
 
-type Doctor = typeof fallbackDoctors[number] & { hideIdentity?: boolean };
-
-const hiddenDoctorIdentities = new Set(['牛勇敢', '齐金杰', '李长江']);
+type Doctor = { id?: number; name: string; nameEn?: string; title: string; titleEn?: string; focus: string; focusEn?: string; bio?: string; credentials?: string; specialties?: string; philosophy?: string; image: string; enabled?: number | boolean };
 
 export function useDoctors() {
   const { language } = useLanguage();
-  const [doctors, setDoctors] = useState<Doctor[]>(fallbackDoctors);
-  useEffect(() => { fetch(deploymentPath('/api/doctors')).then((res) => res.ok ? res.json() : Promise.reject()).then((items: Doctor[]) => { if (items.length) { const remoteImages = new Set(items.map((item) => item.image)); setDoctors([...items, ...fallbackDoctors.filter((item) => !remoteImages.has(item.image))]); } }).catch(() => undefined); }, []);
+  const [doctors, setDoctors] = useState<Doctor[]>([]);
+  useEffect(() => { fetch(deploymentPath('/api/doctors')).then((res) => res.ok ? res.json() : Promise.reject()).then((items: Doctor[]) => setDoctors(items)).catch(() => setDoctors([])); }, []);
   return doctors.map((doctor) => {
-    const hideIdentity = hiddenDoctorIdentities.has(doctor.name.replace(/\s+/g, ''));
     const localizedDoctor = language === 'en'
       ? { ...doctor, name: doctor.nameEn || doctor.name, title: doctor.titleEn || doctor.title, focus: doctor.focusEn || doctor.focus }
       : doctor;
-    return { ...localizedDoctor, hideIdentity };
+    return localizedDoctor;
   });
 }

@@ -26,15 +26,12 @@ export function DoctorsPreview() {
         <p>{text('每一位医生都以严谨、审美与沟通，参与您的专属方案。', 'Every doctor brings clinical care, aesthetic judgment and open communication to your personal plan.')}</p>
       </div>
       <div className="sy-doctor-grid" data-stagger>
-        {doctors.slice(0, 4).map((doctor) => doctor.hideIdentity
-          ? <article className="weui-cell sy-doctor-card sy-doctor-card-image-only" key={doctor.image}>
-              <div><Image src={doctor.image} alt={text('圣娅医疗团队成员', 'Saintia medical team member')} fill sizes="(max-width: 700px) 50vw, 25vw" /></div>
-            </article>
-          : <button type="button" className="weui-cell weui-cell_access sy-doctor-card" key={doctor.image} onClick={() => setSelected(doctor)}>
+        {doctors.map((doctor) => <button type="button" className="weui-cell weui-cell_access sy-doctor-card" key={doctor.image} onClick={() => setSelected(doctor)}>
               <div><Image src={doctor.image} alt={doctor.name} fill sizes="(max-width: 700px) 50vw, 25vw" /></div>
               <h3>{doctor.name}</h3>
               <p>{doctor.title}</p>
-              <small>{text('查看医生资料', 'View Profile')} →</small>
+              <small>{doctor.focus}</small>
+              <span className="sy-doctor-view">{text('查看医生资料 →', 'View profile →')}</span>
             </button>)}
       </div>
       <Link className="sy-link" href="/doctors">{text('查看完整团队', 'Meet the Full Team')} →</Link>
@@ -43,7 +40,7 @@ export function DoctorsPreview() {
       <div className="weui-mask sy-modal-mask" onClick={() => setSelected(null)} />
       <div className="weui-half-screen-dialog weui-half-screen-dialog_show sy-doctor-modal" role="dialog" aria-modal="true" aria-label={text(`${selected.name}医生资料`, `${selected.name} profile`)}>
         <div className="weui-half-screen-dialog__hd"><div className="weui-half-screen-dialog__hd__side"><button className="weui-icon-btn weui-icon-btn_close" onClick={() => setSelected(null)} aria-label={text('关闭', 'Close')} /></div><div className="weui-half-screen-dialog__hd__main"><strong className="weui-half-screen-dialog__title">{text('医生资料', 'Doctor profile')}</strong></div></div>
-        <div className="weui-half-screen-dialog__bd sy-doctor-sheet"><div className="sy-modal-photo"><Image src={selected.image} alt={selected.name} fill sizes="320px" /></div><div className="sy-modal-copy"><p className="sy-kicker">SAINTIA MEDICAL CENTER</p><h2>{selected.name}</h2><strong>{selected.title}</strong><p>{selected.focus}</p><Link className="weui-btn weui-btn_primary sy-btn sy-btn-dark" href="/contact">{text('预约咨询', 'Book a Consultation')}</Link></div></div>
+        <div className="weui-half-screen-dialog__bd sy-doctor-sheet"><div className="sy-modal-photo"><Image src={selected.image} alt={selected.name} fill sizes="320px" /></div><div className="sy-modal-copy"><p className="sy-kicker">SAINTIA MEDICAL CENTER</p><h2>{selected.name}</h2><strong>{selected.title}</strong>{selected.bio && <p className="sy-doctor-bio">{selected.bio}</p>}<div className="sy-doctor-detail"><b>{text('擅长项目', 'Specialties')}</b><p>{(selected.specialties || selected.focus || '').split('\n').join(' · ')}</p></div>{selected.credentials && <details><summary>{text('查看资历与任职', 'View credentials')}</summary><p>{selected.credentials}</p></details>}{selected.philosophy && <p className="sy-doctor-philosophy">“{selected.philosophy}”</p>}<Link className="weui-btn weui-btn_primary sy-btn sy-btn-dark" href="/contact">{text('预约咨询', 'Book a Consultation')}</Link></div></div>
       </div>
     </>}
   </section>;
